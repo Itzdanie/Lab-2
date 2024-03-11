@@ -1205,82 +1205,82 @@ module DES (input logic [63:0] key, input logic [63:0] plaintext,
    logic [63:0] Round1Out;
    logic [47:0] Mux1Out;
    assign Mux1Out = encrypt ? SubKey1 : SubKey16;
-   Round1Out r1(ip_out,Mux1Out,Round1Out);
+   round r1(ip_out,Mux1Out,Round1Out);
    // round 2
    logic [63:0] Round2Out;
    logic [47:0] Mux2Out;
    assign Mux2Out = encrypt ? SubKey2 : SubKey15;
-   Round2Out r2(Round1Out,Mux2Out,Round2Out);
+   round r2(Round1Out,Mux2Out,Round2Out);
    // round 3
    logic [63:0] Round3Out;
    logic [47:0] Mux3Out;
    assign Mux3Out = encrypt ? SubKey3 : SubKey14;
-   Round3Out r3(Round2Out,Mux3Out,Round3Out);
+   round r3(Round2Out,Mux3Out,Round3Out);
    // round 4
    logic [63:0] Round4Out;
    logic [47:0] Mux4Out;
    assign Mux4Out = encrypt ? SubKey4 : SubKey13;
-   Round4Out r4(Round3Out,Mux4Out,Round4Out);
+   round r4(Round3Out,Mux4Out,Round4Out);
    // round 5
    logic [63:0] Round5Out;
    logic [47:0] Mux5Out;
    assign Mux5Out = encrypt ? SubKey5 : SubKey12;
-   Round5Out r5(Round4Out,Mux5Out,Round5Out);
+   round r5(Round4Out,Mux5Out,Round5Out);
    // round 6
    logic [63:0] Round6Out;
    logic [47:0] Mux6Out;
    assign Mux6Out = encrypt ? SubKey6 : SubKey11;
-   Round6Out r6(Round5Out,Mux6Out,Round6Out);
+   round r6(Round5Out,Mux6Out,Round6Out);
    // round 7
    logic [63:0] Round7Out;
    logic [47:0] Mux7Out;
    assign Mux7Out = encrypt ? SubKey7 : SubKey10;
-   Round7Out r7(Round6Out,Mux7Out,Round7Out);
+   round r7(Round6Out,Mux7Out,Round7Out);
    // round 8
    logic [63:0] Round8Out;
    logic [47:0] Mux8Out;
    assign Mux8Out = encrypt ? SubKey8 : SubKey9;
-   Round8Out r8(Round7Out,Mux8Out,Round8Out);
+   round r8(Round7Out,Mux8Out,Round8Out);
    // round 9
    logic [63:0] Round9Out;
    logic [47:0] Mux9Out;
    assign Mux9Out = encrypt ? SubKey9 : SubKey8;
-   Round9Out r9(Round8Out,Mux9Out,Round9Out);
+   round r9(Round8Out,Mux9Out,Round9Out);
    // round 10
    logic [63:0] Round10Out;
    logic [47:0] Mux10Out;
    assign Mux10Out = encrypt ? SubKey10 : SubKey7;
-   Round10Out r10(Round9Out,Mux10Out,Round10Out);
+   round r10(Round9Out,Mux10Out,Round10Out);
    // round 11
    logic [63:0] Round11Out;
    logic [47:0] Mux11Out;
    assign Mux11Out = encrypt ? SubKey11 : SubKey6;
-   Round11Out r11(Round10Out,Mux11Out,Round11Out);
+   round r11(Round10Out,Mux11Out,Round11Out);
    // round 12
    logic [63:0] Round12Out;
    logic [47:0] Mux12Out;
    assign Mux12Out = encrypt ? SubKey12 : SubKey5;
-   Round12Out r12(Round11Out,Mux12Out,Round12Out);
+   round r12(Round11Out,Mux12Out,Round12Out);
    // round 13
    logic [63:0] Round13Out;
    logic [47:0] Mux13Out;
    assign Mux13Out = encrypt ? SubKey13 : SubKey4;
-   Round13Out r13(Round12Out,Mux13Out,Round13Out);
+   round r13(Round12Out,Mux13Out,Round13Out);
    // round 14
    logic [63:0] Round14Out;
    logic [47:0] Mux14Out;
    assign Mux14Out = encrypt ? SubKey14 : SubKey3;
-   Round14Out r14(Round13Out,Mux14Out,Round14Out);
+   round r14(Round13Out,Mux14Out,Round14Out);
    // round 15
    logic [63:0] Round15Out;
    logic [47:0] Mux15Out;
    assign Mux15Out = encrypt ? SubKey15 : SubKey2;
-   Round15Out r15(Round14Out,Mux15Out,Round15Out);
+   round r15(Round14Out,Mux15Out,Round15Out);
    // round 16
    logic [63:0] Round16Out;
    logic [47:0] Mux16Out;
    assign Mux16Out = encrypt ? SubKey16 : SubKey1;
-   Round16Out r16(Round15Out,Mux16Out,Round16Out);
+   round r16(Round15Out,Mux16Out,Round16Out);
    // Final Permutation (IP^{-1}) (swap output of round16)
    FP FP({r16_out[31:0], r16_out[63:32]}, ciphertext);
    
