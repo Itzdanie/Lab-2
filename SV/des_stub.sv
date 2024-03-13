@@ -62,7 +62,7 @@ module GenerateKeys (Key, SubKey1, SubKey2, SubKey3, SubKey4,
    logic [27:0] l17;
    logic [27:0] r17;
    
-   PC1 I(key,l1,r1);
+   PC1 I(Key,l1,r1);
 
    assign l2 = {l1[26:0],l1[27]};
    assign r2 = {r1[26:0],r1[27]};
@@ -128,15 +128,15 @@ module GenerateKeys (Key, SubKey1, SubKey2, SubKey3, SubKey4,
    assign r17 = {r16[26:0],r16[27]};
    PC2 XVII(l17,r17,SubKey16);
 
-endmodule // GenerateKeys
+   endmodule // GenerateKeys
 
 module PC1 (key,l1,r1);
 
-   input logic [63:0]  key;
+   input logic [63:0] key;
    output logic [27:0] l1;
    output logic [27:0] r1;
 
-   logic [55:0]        out_block;
+   //logic [55:0]        out_block;
 
    //Left
    assign l1[27] = key[64-57];
@@ -198,7 +198,7 @@ module PC1 (key,l1,r1);
    assign r1[0] = key[64-4];
 
 
-endmodule // PC1
+   endmodule // PC1
 
 module PC2 (left_block, right_block, SubKey);
 
@@ -259,7 +259,7 @@ module PC2 (left_block, right_block, SubKey);
 
 
 
-endmodule // PC2
+   endmodule // PC2
 
 // Straight Function
 module SF (inp_block, out_block);
@@ -300,7 +300,7 @@ module SF (inp_block, out_block);
    assign out_block[1] = inp_block[32-4];
    assign out_block[0] = inp_block[32-25];
 
-endmodule // SF
+   endmodule // SF
 
 // Expansion Function
 module EF (inp_block, out_block);
@@ -364,7 +364,7 @@ module EF (inp_block, out_block);
    assign out_block[1]=inp_block[32-32];
    assign out_block[0]=inp_block[32-1];
 
-endmodule // EF
+   endmodule // EF
 
 module feistel (inp_block, SubKey, out_block);
 
@@ -390,7 +390,7 @@ module feistel (inp_block, SubKey, out_block);
 
    SF sf (out,out_block);
 
-endmodule // Feistel
+   endmodule // Feistel
 
 // DES block round
 module round (inp_block, SubKey, out_block);
@@ -410,7 +410,7 @@ module round (inp_block, SubKey, out_block);
    assign out_block[31:0] = feistel_out^left_block;
    assign out_block[63:32] = right_block;
 
-endmodule // round1
+   endmodule // round1
 
 // Initial Permutation
 module IP (inp_block, out_block);
@@ -483,7 +483,7 @@ module IP (inp_block, out_block);
    assign out_block[1] = inp_block[64-15];
    assign out_block[0] = inp_block[64-7];   
 
-endmodule // IP
+   endmodule // IP
 
 // Final Permutation
 module FP (inp_block, out_block);
@@ -556,7 +556,7 @@ module FP (inp_block, out_block);
    assign out_block[1] = inp_block[64-57];
    assign out_block[0] = inp_block[64-25];  
 
-endmodule // FP
+   endmodule // FP
 
 module S1_Box (inp_bits, out_bits);
 
@@ -634,7 +634,7 @@ module S1_Box (inp_bits, out_bits);
         endcase
      end // always_comb
    
-endmodule // S1_Box
+   endmodule // S1_Box
 
 module S2_Box (inp_bits, out_bits);
 
@@ -712,7 +712,7 @@ module S2_Box (inp_bits, out_bits);
         endcase
      end // always_comb
    
-endmodule // S2_Box
+   endmodule // S2_Box
 
 module S3_Box (inp_bits, out_bits);
 
@@ -790,7 +790,7 @@ module S3_Box (inp_bits, out_bits);
         endcase
      end // always_comb
    
-endmodule // S3_Box
+   endmodule // S3_Box
 
 module S4_Box (inp_bits, out_bits);
 
@@ -868,7 +868,7 @@ module S4_Box (inp_bits, out_bits);
         endcase
      end // always_comb
    
-endmodule // S4_Box
+   endmodule // S4_Box
 
 module S5_Box (inp_bits, out_bits);
 
@@ -946,7 +946,7 @@ module S5_Box (inp_bits, out_bits);
         endcase
      end // always_comb
    
-endmodule // S5_Box
+   endmodule // S5_Box
 
 module S6_Box (inp_bits, out_bits);
 
@@ -1024,7 +1024,7 @@ module S6_Box (inp_bits, out_bits);
         endcase
      end // always_comb
    
-endmodule // S6_Box
+   endmodule // S6_Box
 
 module S7_Box (inp_bits, out_bits);
 
@@ -1102,7 +1102,7 @@ module S7_Box (inp_bits, out_bits);
         endcase
      end // always_comb
    
-endmodule // S7_Box
+   endmodule // S7_Box
 
 module S8_Box (inp_bits, out_bits);
 
@@ -1180,7 +1180,7 @@ module S8_Box (inp_bits, out_bits);
         endcase
      end // always_comb
    
-endmodule // S8_Box
+   endmodule // S8_Box
 
 module DES (input logic [63:0] key, input logic [63:0] plaintext, 
 	    input logic encrypt, output logic [63:0] ciphertext);
@@ -1191,7 +1191,7 @@ module DES (input logic [63:0] key, input logic [63:0] plaintext,
    logic [47:0] 	SubKey13, SubKey14, SubKey15, SubKey16;
 
    logic [63:0] 	ip_out;   
-   logic [63:0] 	r16_out;   
+   //logic [63:0] 	r16_out;   
    
    // SubKey generation
    GenerateKeys k1 (key, SubKey1, SubKey2, SubKey3, SubKey4,
@@ -1282,8 +1282,8 @@ module DES (input logic [63:0] key, input logic [63:0] plaintext,
    assign Mux16Out = encrypt ? SubKey16 : SubKey1;
    round r16(Round15Out,Mux16Out,Round16Out);
    // Final Permutation (IP^{-1}) (swap output of round16)
-   FP FP({r16_out[31:0], r16_out[63:32]}, ciphertext);
+   FP FP({Round16Out[31:0], Round16Out[63:32]}, ciphertext);
    
-endmodule // DES
+   endmodule // DES
 
 

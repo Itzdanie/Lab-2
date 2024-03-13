@@ -35,7 +35,7 @@ add wave -hex -r /stimulus/*
 -- Set Wave Output Items 
 TreeUpdate [SetDefaultTree]
 WaveRestoreZoom {0 ps} {75 ns}
-configure wave -namecolwidth 350
+configure wave -namecolwidth 500
 configure wave -valuecolwidth 200
 configure wave -justifyvalue left
 configure wave -signalnamewidth 1

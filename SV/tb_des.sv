@@ -16,8 +16,8 @@ module stimulus;
    
    integer 	 handle3;
    integer 	 desc3;
-   integer 	 i;  
-   integer       j;
+  //  integer 	 i;  
+  //  integer       j;
 
    DES dut (key, plaintext, encrypt, ciphertext);
 
